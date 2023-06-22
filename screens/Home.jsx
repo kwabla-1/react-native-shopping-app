@@ -2,6 +2,7 @@ import {Image, ScrollView, StatusBar, Text, TouchableOpacity, View} from "react-
 import {COLOURS, Items} from "../database/database";
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useEffect, useState} from "react";
 
 export const Home = ({navigation}) => {
@@ -33,7 +34,7 @@ export const Home = ({navigation}) => {
 
 	const ProductCard = ({data}) => {
 		return (
-			<TouchableOpacity style={{width: '48%', marginVertical: 14}}>
+			<TouchableOpacity onPress={() => navigation.navigate('ProductInfor', {productID: data.id})} style={{width: '48%', marginVertical: 14}}>
 
 				<View style={{
 					position: 'relative',
@@ -68,7 +69,14 @@ export const Home = ({navigation}) => {
 				<Text style={{fontSize: 12, fontWeight: '600', marginBottom: 2}}>{data.productName}</Text>
 
 				{
-					data.category == 'accessory' ? null : null
+					data.category == 'accessory' ? (data.isAvailable) ?
+						<View style={{flexDirection: 'row', alignItems: 'center'}}>
+							<FontAwesome name='circle' style={{fontSize: 12, marginRight: 6, color: 'green'}} />
+							<Text style={{fontSize: 12, color: 'green'}}>Available</Text>
+						</View> : <View style={{flexDirection: 'row', alignItems: 'center'}}>
+							<FontAwesome name='circle' style={{fontSize: 12, marginRight: 6, color: 'red'}} />
+							<Text style={{fontSize: 12, color: 'red'}}>unavailable</Text>
+						</View> : null
 				}
 
 				<Text>
@@ -102,7 +110,7 @@ export const Home = ({navigation}) => {
 					<Text style={{fontSize: 14, fontWeight: '400', letterSpacing: 1, lineHeight: 24}}>Audio Shop on Dansoman Ave 78 {'\n'}This shop offers both products and services</Text>
 				</View>
 
-				<View>
+				<View style={{padding: 12}}>
 					<View style={{padding: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
 						<View style={{flexDirection: 'row', alignItems: 'center'}}>
 							<Text style={{fontSize: 18, color: COLOURS.black, fontWeight: '500', letterSpacing: 1}}>Products</Text>
