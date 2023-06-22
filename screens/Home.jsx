@@ -28,8 +28,7 @@ export const Home = ({navigation}) => {
 
 		setProducts(productList);
 		setAccessory(accessoryList);
-
-		console.log(products)
+		
 	}
 
 	const ProductCard = ({data}) => {
